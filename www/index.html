@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Hello from Ceylon!</title>
+</head>
+<body>
+    <div id="container">
+    </div>
+    <script src="require.js"></script>
+	<script type="text/javascript">
+	require.config({
+		baseUrl : 'modules'
+	});
+	require(
+			[ 'com/acme/client/1.0.0/com.acme.client-1.0.0' ],
+			function(app) {
+				app.run();
+			}
+	);
+	</script>
+</body>
+</html>
