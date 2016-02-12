@@ -1,6 +1,5 @@
-import ceylon.net.http.server.endpoints {
-    RepositoryEndpoint,
-    serveStaticFile
+import ceylon.net.http {
+    get
 }
 import ceylon.net.http.server {
     newServer,
@@ -8,30 +7,14 @@ import ceylon.net.http.server {
     AsynchronousEndpoint,
     Request
 }
-import java.util {
-    Collections
-}
-import ceylon.interop.java {
-    javaString
-}
-import com.redhat.ceylon.cmr.ceylon {
-    CeylonUtils
-}
-import ceylon.net.http {
-    get
+import ceylon.net.http.server.endpoints {
+    RepositoryEndpoint,
+    serveStaticFile
 }
 
 "Run the module `com.acme.server`."
 shared void run() {
-    value outputDir = (process.propertyValue("user.dir") else "")
-            + "/modules";
-    
-    value repoManager = CeylonUtils
-            .repoManager()
-            .extraUserRepos(Collections.singletonList(javaString(outputDir)))
-            .buildManager();
-
-    value modulesEp = RepositoryEndpoint("/modules", repoManager);
+    value modulesEp = RepositoryEndpoint("/modules");
 
     function mapper(Request req) 
             => req.path == "/" then "/index.html" else req.path;
